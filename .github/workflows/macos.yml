@@ -1,0 +1,44 @@
+name: Build InsightWallet (macOS)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  macos:
+    runs-on: macos-latest   # Apple Silicon runner
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip setuptools wheel
+
+      - name: Install Briefcase
+        run: pip install briefcase
+
+      - name: Install app dependencies
+        run: pip install -r requirements.txt
+
+      - name: Create macOS app
+        run: briefcase create macOS
+        continue-on-error: true
+
+      - name: Build macOS app
+        run: briefcase build macOS
+
+      - name: Package macOS app
+        run: briefcase package macOS
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: InsightWallet-macOS
+          path: dist/
