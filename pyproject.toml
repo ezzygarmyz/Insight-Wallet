@@ -31,7 +31,7 @@ universal_build = true
 requires = [
     "toga-cocoa==0.5.3",
     "std-nslog~=1.0.3",
-    "crcmod"
+    "crcmod-pure"
 ]
 
 [tool.briefcase.app.insightwallet.linux]
