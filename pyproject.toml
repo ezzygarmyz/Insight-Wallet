@@ -30,8 +30,7 @@ test_requires = [
 universal_build = true
 requires = [
     "toga-cocoa==0.5.3",
-    "std-nslog~=1.0.3",
-    "crcmod-pure"
+    "std-nslog~=1.0.3"
 ]
 
 [tool.briefcase.app.insightwallet.linux]
