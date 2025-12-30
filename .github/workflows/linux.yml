@@ -5,6 +5,8 @@ on:
     branches:
       - main
   pull_request:
+    branches:
+      - main
 
 jobs:
   build-linux:
@@ -39,4 +41,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: linux-build
-          path: ./insightwallet/linux/build/
+          path: ./InsightWallet/linux/InsightWallet/build/
