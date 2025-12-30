@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: ["Ubuntu", "Fedora-40", "Windows"]
+        target: ["Ubuntu", "Fedora-40", "Windows", "macOS"]
         include:
           - target: "Ubuntu"
             platform: "Linux"
@@ -49,9 +49,12 @@ jobs:
             briefcase-args: "--target fedora"
 
           - target: "Windows"
-            platform: "Windows"
             output-format: "app"
             runs-on: "windows-latest"
+
+          - target: "macOS"
+            output-format: "app"
+            runs-on: "macos-latest"
 
     steps:
       - name: Checkout
