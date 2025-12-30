@@ -1,0 +1,50 @@
+name: Build InsightWallet Linux
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install Briefcase
+        run: pip install briefcase==0.3.26
+
+      - name: Install app dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install system dependencies (Ubuntu/Debian)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libcairo2-dev \
+            libgirepository1.0-dev \
+            gir1.2-gtk-3.0 \
+            libcanberra-gtk3-module
+
+      - name: Build Linux app
+        run: briefcase build linux
+
+      - name: Package Linux app
+        run: briefcase package linux
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-build
+          path: ./InsightWallet/linux/build/
