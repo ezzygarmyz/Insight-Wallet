@@ -29,7 +29,11 @@ jobs:
             platform: "Linux"
             output-format: "system"
             runs-on: "ubuntu-latest"
-            pre-command: "sudo apt -y install libcairo2-dev libgirepository1.0-dev gir1.2-gtk-3.0 libcanberra-gtk3-module build-essential"
+            pre-command: |
+              sudo apt-get update --fix-missing
+              sudo apt-get install -y \
+                socat libcairo2-dev libgirepository1.0-dev gir1.2-gtk-3.0 \
+                libcanberra-gtk3-module build-essential git uuid-dev libblkid-dev libmount-dev
             briefcase-run-prefix: "xvfb-run"
             briefcase-args: "--target ubuntu"
 
