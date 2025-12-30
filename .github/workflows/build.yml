@@ -18,12 +18,12 @@ defaults:
 
 jobs:
   ci:
-    name: Test and Package Linux
+    name: Test and Package
     runs-on: ${{ matrix.runs-on }}
     strategy:
       fail-fast: false
       matrix:
-        target: ["Ubuntu"]
+        target: ["Ubuntu", "Fedora", "Windows"]
         include:
           - target: "Ubuntu"
             platform: "Linux"
@@ -36,6 +36,26 @@ jobs:
                 libcanberra-gtk3-module build-essential git uuid-dev libblkid-dev libmount-dev
             briefcase-run-prefix: "xvfb-run"
             briefcase-args: "--target ubuntu"
+
+          - target: "Fedora"
+            platform: "Linux"
+            output-format: "system"
+            runs-on: "fedora-latest"
+            pre-command: |
+              sudo dnf install -y \
+                socat cairo-devel gobject-introspection gtk3-devel \
+                libcanberra-gtk3-devel make automake gcc gcc-c++ git util-linux-user
+            briefcase-run-prefix: "xvfb-run"
+            briefcase-args: "--target fedora"
+
+          - target: "Windows"
+            platform: "Windows"
+            output-format: "system"
+            runs-on: "windows-latest"
+            pre-command: |
+              echo "No pre-command needed for Windows"
+            briefcase-run-prefix: ""
+            briefcase-args: "--target windows"
 
     steps:
       - name: Checkout
@@ -51,7 +71,7 @@ jobs:
 
       - name: Build App
         run: |
-          ${{ matrix.briefcase-build-prefix }} \
+          ${{ matrix.briefcase-run-prefix }} \
           briefcase build \
             ${{ matrix.platform || matrix.target }} \
             ${{ matrix.output-format }} \
@@ -68,6 +88,6 @@ jobs:
       - name: Upload App
         uses: actions/upload-artifact@v4
         with:
-          name: App-${{ matrix.target }}
+          name: InsightWallet-${{ matrix.target }}
           path: dist
           if-no-files-found: warn
