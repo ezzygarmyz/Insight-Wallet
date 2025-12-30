@@ -23,15 +23,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: ["Ubuntu-24.04"]
+        target: ["Ubuntu"]
         include:
-          - target: "Ubuntu-24.04"
+          - target: "Ubuntu"
             platform: "Linux"
             output-format: "system"
             runs-on: "ubuntu-latest"
             pre-command: "sudo apt -y install socat libcairo2-dev libgirepository1.0-dev gir1.2-gtk-3.0 libcanberra-gtk3-module build-essential"
             briefcase-run-prefix: "xvfb-run"
-            briefcase-args: "--target ubuntu:24.04"
+            briefcase-args: "--target ubuntu"
 
     steps:
       - name: Checkout
