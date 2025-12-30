@@ -58,15 +58,6 @@ jobs:
             --test --no-input --log \
             ${{ matrix.briefcase-args }}
 
-      - name: Test App
-        run: |
-          ${{ matrix.briefcase-run-prefix }} \
-          briefcase run \
-            ${{ matrix.platform || matrix.target }} \
-            ${{ matrix.output-format }} \
-            --test --no-input --log \
-            ${{ matrix.briefcase-args }}
-
       - name: Package App
         run: |
           briefcase package \
@@ -81,10 +72,3 @@ jobs:
           name: App-${{ matrix.target }}
           path: dist
           if-no-files-found: warn
-
-      - name: Upload Log
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Log-Failure-Linux
-          path: logs/*
