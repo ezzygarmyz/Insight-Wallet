@@ -52,10 +52,6 @@ jobs:
             platform: "Windows"
             output-format: "app"
             runs-on: "windows-latest"
-            pre-command: |
-              echo "No pre-command needed for Windows"
-            briefcase-run-prefix: ""
-            briefcase-args: "--target windows"
 
     steps:
       - name: Checkout
