@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: ["Ubuntu", "Fedora", "Windows"]
+        target: ["Ubuntu", "Fedora-40", "Windows"]
         include:
           - target: "Ubuntu"
             platform: "Linux"
@@ -37,7 +37,7 @@ jobs:
             briefcase-run-prefix: "xvfb-run"
             briefcase-args: "--target ubuntu"
 
-          - target: "Fedora"
+          - target: "Fedora-40"
             platform: "Linux"
             output-format: "system"
             runs-on: "fedora-latest"
@@ -50,7 +50,7 @@ jobs:
 
           - target: "Windows"
             platform: "Windows"
-            output-format: "system"
+            output-format: "app"
             runs-on: "windows-latest"
             pre-command: |
               echo "No pre-command needed for Windows"
