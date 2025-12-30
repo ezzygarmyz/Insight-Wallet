@@ -29,7 +29,7 @@ jobs:
             platform: "Linux"
             output-format: "system"
             runs-on: "ubuntu-latest"
-            pre-command: "sudo apt -y install socat libcairo2-dev libgirepository1.0-dev gir1.2-gtk-3.0 libcanberra-gtk3-module build-essential"
+            pre-command: "sudo apt -y install libcairo2-dev libgirepository1.0-dev gir1.2-gtk-3.0 libcanberra-gtk3-module build-essential"
             briefcase-run-prefix: "xvfb-run"
             briefcase-args: "--target ubuntu"
 
