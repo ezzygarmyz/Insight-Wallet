@@ -55,7 +55,6 @@ jobs:
           briefcase build \
             ${{ matrix.platform || matrix.target }} \
             ${{ matrix.output-format }} \
-            --test --no-input --log \
             ${{ matrix.briefcase-args }}
 
       - name: Package App
